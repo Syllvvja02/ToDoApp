@@ -1,13 +1,18 @@
 import React, {useState} from "react";
 import useInput from "./useInput";
+import {CreateTask} from "../API/tasks";
 
-export default function NewTask() {
+export default function NewTask({onNewTask}) {
 
     const [title, connectTitle] = useInput("");
     const [description, connectDescription] = useInput("");
 
     const clicked = (e) => {
-        pass
+        e.preventDefault();
+        const newTask = {title: title, description: description, status: "open"}
+        console.log(newTask);
+        const wywolanie = CreateTask(newTask);
+        console.log(wywolanie);
     }
 
     return(
@@ -37,3 +42,4 @@ export default function NewTask() {
     )
 
 }
+// {title: "", description: "", status: ""}

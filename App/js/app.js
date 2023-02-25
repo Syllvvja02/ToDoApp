@@ -22,10 +22,26 @@ const App = () => {
         return <p>usuwanie taska</p>
     }
 
+    const onNewTask = () => {
+        pass
+    }
+
+
+    const handleTaskDone = id => {
+        setTasks(prevState => {
+            return prevState.filter(task => {
+                return task.id !== id;
+            });
+        });
+    };
+
+
     return(
         <div>
-            <NewTask/>
+            <NewTask onNewTask={onNewTask}/>
             <Task/>
+            <p> tested info</p>
+            <p>{tasks}</p>
         </div>
     )
 

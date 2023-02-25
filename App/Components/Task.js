@@ -18,8 +18,6 @@ export default function Task() {
                     <h5>Tytuł zadania</h5>
                     <h6 className="card-subtitle text-muted">Opis zadania</h6>
                 </div>
-
-
                 <div>
                     <button className="btn btn-info btn-sm mr-2" onClick={operations}>
                         Add operation
