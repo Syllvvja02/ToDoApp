@@ -11,8 +11,7 @@ export default function NewTask({onNewTask}) {
         e.preventDefault();
         const newTask = {title: title, description: description, status: "open"}
         console.log(newTask);
-        const wywolanie = CreateTask(newTask);
-        console.log(wywolanie);
+        CreateTask(newTask);
     }
 
     return(

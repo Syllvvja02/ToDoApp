@@ -17,6 +17,7 @@ export const getTasks = async (successCallback) => {
         }
 
         successCallback(data.data);
+        console.log(data.data);
     } catch (err) {
         console.log(err);
     }
@@ -44,4 +45,22 @@ export const CreateTask = async ({title, description, status}) => {
     } catch (err) {
         console.log(err);
     }
+};
+
+
+export const removeTask = async (id, task_lst, callbackFunction) => {
+    const res = await fetch(`${API_URL}/tasks/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Authorization': API_KEY,
+            'Content-Type': 'application/json'
+
+        }
+    });
+    if (typeof callbackFunction !== "function") {
+        throw new Error("Błąd!");
+    } else if (res.ok) {
+        callbackFunction(task_lst => task_lst.filter((task) => task.id !== id));
+    }
+
 };

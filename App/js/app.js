@@ -3,6 +3,7 @@ import {createRoot} from "react-dom";
 import {getTasks} from "../API/tasks";
 import NewTask from "../Components/NewTask";
 import Task from "../Components/Task"
+import {removeTask} from "../API/tasks"
 
 const container = document.getElementById("app");
 
@@ -14,34 +15,37 @@ const App = () => {
         getTasks(setTasks);
     }, []);
 
-    const addTask = () => {
-        return <p>dodawanie taska</p>
+
+    const rmvTask = (id) => {
+        removeTask(id, tasks, setTasks);
     }
 
-    const removeTask = () => {
-        return <p>usuwanie taska</p>
-    }
-
-    const onNewTask = () => {
-        pass
-    }
-
-
-    const handleTaskDone = id => {
+    const onNewTask = (task) => {
         setTasks(prevState => {
-            return prevState.filter(task => {
-                return task.id !== id;
-            });
-        });
-    };
+            return [...prevState,
+            task]
+        })
+    }
 
+
+    // const handleTaskDone = id => {
+    //     setTasks(prevState => {
+    //         return prevState.filter(task => {
+    //             return task.id !== id;
+    //         });
+    //     });
+    // };
+
+    if (!tasks) return <h1>Loading data..</h1>
 
     return(
         <div>
             <NewTask onNewTask={onNewTask}/>
-            <Task/>
-            <p> tested info</p>
-            <p>{tasks}</p>
+
+            {tasks.map(task => {
+                return <Task key={task.id} id={task.id} title={task.title} description={task.description} status={task.status} onRemoveTask={rmvTask}/>
+            })}
+
         </div>
     )
 
