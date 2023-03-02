@@ -28,14 +28,6 @@ const App = () => {
     }
 
 
-    // const handleTaskDone = id => {
-    //     setTasks(prevState => {
-    //         return prevState.filter(task => {
-    //             return task.id !== id;
-    //         });
-    //     });
-    // };
-
     if (!tasks) return <h1>Loading data..</h1>
 
     return(
@@ -50,6 +42,5 @@ const App = () => {
     )
 
 }
-//Task w metodą map, bo to bedzie lista tasków
 const root = createRoot(container);
 root.render(<App/>);

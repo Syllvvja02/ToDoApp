@@ -1,23 +1,24 @@
 import React, {useState, useEffect} from "react";
-import {createRoot} from "react-dom";
-import useInput from "./useInput";
-import {getTasks} from "../API/tasks";
+import {getOperations} from "../API/operations";
 
 export default function Task({id, title, description, status, onRemoveTask}) {
 
-    const [one_task, setOneTask] = useState("");
+    const [stat, setStat] = useState(status);
+    const [operations, setOperations] = useState([]);
+    const [stan, setStan] = useState(true);
 
-    const operations = () => {
+    useEffect(() => {
+        getOperations(id, setOperations);
+    }, []);
+
+    const operationsFunc = () => {
         // change state: true to false, etc
         console.log("Clicked");
     }
 
     const close_task = () => {
-        // setOneTask(prevState => {
-        //     return {...prevState,
-        //     status: "closed"
-        //     }
-        // })
+        setStan(prevState => !prevState)
+        setStat("closed");
         console.log("Clicked");
     }
 
@@ -35,11 +36,10 @@ export default function Task({id, title, description, status, onRemoveTask}) {
                     <h6 className="card-subtitle text-muted">{description}</h6>
                 </div>
                 <div>
-                    <button className="btn btn-info btn-sm mr-2" onClick={operations}>
+                    <button className="btn btn-info btn-sm mr-2" onClick={operationsFunc}>
                         Add operation
                         <i className="fas fa-plus-circle ml-1"></i>
                     </button>
-
                     <button className="btn btn-dark btn-sm" onClick={close_task}>
                         Finish
                         <i className="fas fa-archive ml-1"></i>

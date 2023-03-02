@@ -7,9 +7,11 @@ export default function NewTask({onNewTask}) {
     const [title, connectTitle] = useInput("");
     const [description, connectDescription] = useInput("");
 
+
     const clicked = (e) => {
         e.preventDefault();
         const newTask = {title: title, description: description, status: "open"}
+        onNewTask(newTask);
         console.log(newTask);
         CreateTask(newTask);
     }
