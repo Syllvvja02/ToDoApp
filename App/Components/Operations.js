@@ -6,12 +6,18 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
 
     const [descript, connectDescript] = useInput('');
     // const [descript, setDescript] = useState([]);
+    console.log("description: ", descript);
+    console.log("operations: ", operations);
 
     const add = (e) => {
         e.preventDefault();
         setOperations(prevState => {
             return [...prevState, e.target.value]
         })
+    }
+
+    const remove = () => {
+        console.log("remove func");
     }
 
     if (!form) return "";
@@ -35,11 +41,13 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
                     </div>
                 </form>
             </div>
-            <ul className="list-group list-group-flush">
-                <Operation/>
-            </ul>
+            {!operations ? <ul className="list-group list-group-flush">
+                <Operation description={descript} id={taskID} onRemoveOperations={remove} timeSpent={"0"} status={status}/>
+            </ul> : ""}
+
         </div>
     )
 }
+
 
 export default Operations;
