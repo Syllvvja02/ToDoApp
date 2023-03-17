@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {getOperations} from "../API/operations";
-import Operations from "./Operation";
+import Operations from "./Operations";
 
 export default function Task({id, title, description, status, onRemoveTask}) {
 
