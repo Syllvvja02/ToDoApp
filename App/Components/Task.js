@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {getOperations} from "../API/operations";
+import Operations from "./Operation";
 
 export default function Task({id, title, description, status, onRemoveTask}) {
 
@@ -44,11 +45,15 @@ export default function Task({id, title, description, status, onRemoveTask}) {
                         Finish
                         <i className="fas fa-archive ml-1"></i>
                     </button>
-                    <button className="btn btn-outline-danger btn-sm ml-2" onClick={remove}>
+                    {operations ? <button className="btn btn-outline-danger btn-sm ml-2" onClick={remove}>
                         <i className="fas fa-trash false"></i>
-                    </button>
+                    </button> : <button className="btn btn-outline-danger btn-sm ml-2">
+                        <i className="fas fa-trash false"></i>
+                    </button>}
+
                 </div>
             </div>
+            <Operations taskID={id} form={stan} setForm={setStan} operations={operations} setOperations={setOperations} status={stat}/>
         </section>
     )
 }

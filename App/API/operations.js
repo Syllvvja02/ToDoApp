@@ -19,3 +19,26 @@ export const getOperations = async (id, successCallback) => {
         console.log(err);
     }
 };
+
+export const createOperation = async ({id, description, timeSpend}) => {
+    try {
+        const response = await fetch(`${API_URL}/tasks/${id}/operations`, {
+            method: "POST",
+            headers: {
+                'Authorization': API_KEY,
+                'Content-Type': 'application/json'
+
+            },
+            body: JSON.stringify({
+                description: description,
+                timeSpend: timeSpend
+            })
+        }).then( res => {
+                return res.json();
+            }
+        ).then(data => console.log(data))
+
+    } catch (err) {
+        console.log(err);
+    }
+};

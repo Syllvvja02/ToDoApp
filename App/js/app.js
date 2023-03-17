@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {createRoot} from "react-dom";
+import {createRoot} from "react-dom/client";
 import {getTasks} from "../API/tasks";
 import NewTask from "../Components/NewTask";
 import Task from "../Components/Task"
