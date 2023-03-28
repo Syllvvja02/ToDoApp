@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Operation from "./Operation";
-import {createOperation} from "../API/operations";
+import {createOperation, removeOperation} from "../API/operations";
 
 const Operations = ({taskID, form, setForm, operations, setOperations, status}) => {
 
@@ -19,8 +19,9 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
         setDescript(e.target.value);
     }
 
-    const remove = () => {
+    const remove = (idx) => {
         console.log("remove func");
+        removeOperation(idx, operations, setOperations);
     }
 
     if (!form) return "";
@@ -46,7 +47,7 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
             </div>
             <ul className="list-group list-group-flush">
                 {operations.map(o => {
-                return <Operation description={o.description} id={o.id} onRemoveOperations={remove} timeSpent={o.timeSpent} status={o.status}/>
+                return <Operation description={o.description} id={o.id} onRemoveOperations={remove} timeSpent={o.timeSpent} status={status}/>
                 })}
             </ul>
 

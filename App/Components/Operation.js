@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import useInput from "./useInput"
 
 const Operation = ({description, id, onRemoveOperations, timeSpent, status}) => {
 
     const [show, setShow] = useState(true);
+    console.log(status);
 
     const style = "width: 12rem"
 
@@ -11,10 +11,14 @@ const Operation = ({description, id, onRemoveOperations, timeSpent, status}) => 
         setShow(prevState => !prevState);
     }
 
+    const closeTimer = () => {
+        setShow(prevState => !prevState);
+    }
+
     return(
         <li className="list-group-item d-flex justify-content-between align-items-center" id={id}>
             <div>
-                Opis operacji
+                {description}
                 {timeSpent ? <span className="badge badge-success badge-pill ml-2">
       2h 15m
     </span> : ""}
@@ -28,21 +32,21 @@ const Operation = ({description, id, onRemoveOperations, timeSpent, status}) => 
                            style={{style}}/>
                     <div className="input-group-append">
                         <button className="btn btn-outline-success"><i className="fas fa-save"></i></button>
-                        <button className="btn btn-outline-dark"><i className="fas fa-times false"></i></button>
+                        <button className="btn btn-outline-dark" onClick={closeTimer}><i className="fas fa-times false"></i></button>
                     </div>
                 </div>
             </form> : ""}
 
 
-            <div>
-                {status === "open" ? <button className="btn btn-outline-success btn-sm mr-2" onClick={addTime}>
+
+                {show ? <div><button className="btn btn-outline-success btn-sm mr-2" onClick={addTime}>
                     Add time
                     <i className="fas fa-clock ml-1"></i>
-                </button> : ""}
+                </button>
+                    <button className="btn btn-outline-danger btn-sm" onClick={() => onRemoveOperations(id)}><i className="fas fa-trash"></i></button></div>
+                    : ""}
 
 
-                <button className="btn btn-outline-danger btn-sm"><i className="fas fa-trash"></i></button>
-            </div>
         </li>
 
     )

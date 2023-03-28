@@ -44,3 +44,20 @@ export const createOperation = async ({id, description, timeSpend}) => {
         console.log(err);
     }
 };
+
+export const removeOperation = async (id, task_lst, callbackFunction) => {
+    const res = await fetch(`${API_URL}/operations/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Authorization': API_KEY,
+            'Content-Type': 'application/json'
+
+        }
+    });
+    if (typeof callbackFunction !== "function") {
+        throw new Error("Błąd!");
+    } else if (res.ok) {
+        callbackFunction(operation_lst => operation_lst.filter((operation) => operation.id !== id));
+    }
+
+};
