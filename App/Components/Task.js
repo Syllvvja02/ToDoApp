@@ -6,14 +6,14 @@ export default function Task({id, title, description, status, onRemoveTask}) {
 
     const [stat, setStat] = useState(status);
     const [operations, setOperations] = useState([]);
-    const [stan, setStan] = useState(true);
+    const [stan, setStan] = useState(false);
 
     useEffect(() => {
         getOperations(id, setOperations);
     }, []);
 
     const operationsFunc = () => {
-        // change state: true to false, etc
+        setStan(true);
         console.log("Clicked");
     }
 

@@ -12,7 +12,7 @@ const Operation = ({description, id, onRemoveOperations, timeSpent, status}) => 
     }
 
     return(
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center" id={id}>
             <div>
                 Opis operacji
                 {timeSpent ? <span className="badge badge-success badge-pill ml-2">

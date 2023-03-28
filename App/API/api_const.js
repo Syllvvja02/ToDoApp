@@ -1,2 +1,2 @@
-export const API_KEY = "6e6af5c1-e966-4dba-bd7f-8a422c7b1c9b"
+export const API_KEY = "85352d53-5dbf-4f6a-a0aa-3fb799894e49"
 export const API_URL = "https://todo-api.coderslab.pl/api"

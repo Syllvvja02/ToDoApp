@@ -10,8 +10,10 @@ export const getOperations = async (id, successCallback) => {
 
         const data = await response.json();
 
-        if (data.error || typeof successCallback !== "function") {
+        if (data.error) {
             throw new Error("Błąd!");
+        } else if (typeof successCallback !== "function") {
+            throw new Error("Funkcja!");
         }
 
         successCallback(data.data);

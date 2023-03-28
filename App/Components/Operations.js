@@ -1,19 +1,22 @@
 import React, {useState} from "react";
 import Operation from "./Operation";
-import useInput from "./useInput";
+import {createOperation} from "../API/operations";
 
 const Operations = ({taskID, form, setForm, operations, setOperations, status}) => {
 
-    const [descript, connectDescript] = useInput('');
-    // const [descript, setDescript] = useState([]);
+    const [descript, setDescript] = useState('');
     console.log("description: ", descript);
     console.log("operations: ", operations);
 
     const add = (e) => {
         e.preventDefault();
-        setOperations(prevState => {
-            return [...prevState, e.target.value]
-        })
+        const operation = {
+            id: crypto.randomUUID(),
+            description: e.target.value,
+            timeSpent: 0
+        }
+        createOperation(operation);
+        setDescript(e.target.value);
     }
 
     const remove = () => {
@@ -28,7 +31,7 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
                 <form>
                     <div className="input-group">
                         <input type="text"
-                               {...connectDescript}
+                               name="description"
                                className="form-control"
                                placeholder="Operation description"/>
 
@@ -41,9 +44,11 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
                     </div>
                 </form>
             </div>
-            {!operations ? <ul className="list-group list-group-flush">
-                <Operation description={descript} id={taskID} onRemoveOperations={remove} timeSpent={"0"} status={status}/>
-            </ul> : ""}
+            <ul className="list-group list-group-flush">
+                {operations.map(o => {
+                return <Operation description={o.description} id={o.id} onRemoveOperations={remove} timeSpent={o.timeSpent} status={o.status}/>
+                })}
+            </ul>
 
         </div>
     )

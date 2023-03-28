@@ -13,6 +13,7 @@ const App = () => {
 
     useEffect(() => {
         getTasks(setTasks);
+        console.log("tasks:", tasks)
     }, []);
 
 
