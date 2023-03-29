@@ -1,22 +1,23 @@
 import React, {useState} from "react";
 import Operation from "./Operation";
+import useInput from "./useInput";
 import {createOperation, removeOperation} from "../API/operations";
 
 const Operations = ({taskID, form, setForm, operations, setOperations, status}) => {
 
-    const [descript, setDescript] = useState('');
+    const [descript, connectDescript] = useInput('');
     console.log("description: ", descript);
     console.log("operations: ", operations);
 
     const add = (e) => {
         e.preventDefault();
+        console.log("value target:", descript);
         const operation = {
-            id: crypto.randomUUID(),
-            description: e.target.value,
+            id: taskID,
+            description: descript,
             timeSpent: 0
         }
         createOperation(operation);
-        setDescript(e.target.value);
     }
 
     const remove = (idx) => {
@@ -24,15 +25,14 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
         removeOperation(idx, operations, setOperations);
     }
 
-    if (!form) return "";
+    // if (!form) return "";
 
     return(
         <div>
-            <div className="card-body">
-                <form>
+                {form ? <div className="card-body"><form>
                     <div className="input-group">
                         <input type="text"
-                               name="description"
+                            {...connectDescript}
                                className="form-control"
                                placeholder="Operation description"/>
 
@@ -43,8 +43,7 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
                             </button>
                         </div>
                     </div>
-                </form>
-            </div>
+                </form></div> : ""}
             <ul className="list-group list-group-flush">
                 {operations.map(o => {
                 return <Operation description={o.description} id={o.id} onRemoveOperations={remove} timeSpent={o.timeSpent} status={status}/>

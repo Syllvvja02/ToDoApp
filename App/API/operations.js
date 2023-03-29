@@ -9,6 +9,7 @@ export const getOperations = async (id, successCallback) => {
         });
 
         const data = await response.json();
+        console.log(data);
 
         if (data.error) {
             throw new Error("Błąd!");
