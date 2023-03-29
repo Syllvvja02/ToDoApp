@@ -62,3 +62,26 @@ export const removeOperation = async (id, task_lst, callbackFunction) => {
     }
 
 };
+
+export const addOperationTime = async ({id, timeSpend, description}) => {
+    try {
+        const res = await fetch(`${API_URL}/operations/${id}`, {
+            method: "PUT",
+            headers: {
+                'Authorization': API_KEY,
+                'Content-Type': 'application/json'
+
+            },
+            body: JSON.stringify({
+                id: id,
+                description: description,
+                timeSpend: timeSpend,
+            })
+        });
+        if (!res.ok) {
+            throw new Error("Błąd!");
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
