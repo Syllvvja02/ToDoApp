@@ -6,12 +6,9 @@ import {createOperation, removeOperation} from "../API/operations";
 const Operations = ({taskID, form, setForm, operations, setOperations, status}) => {
 
     const [descript, connectDescript] = useInput('');
-    console.log("description: ", descript);
-    console.log("operations: ", operations);
 
     const add = (e) => {
         e.preventDefault();
-        console.log("value target:", descript);
         const operation = {
             id: taskID,
             description: descript,
@@ -21,7 +18,6 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
     }
 
     const remove = (idx) => {
-        console.log("remove func");
         removeOperation(idx, operations, setOperations);
     }
 

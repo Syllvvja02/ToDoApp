@@ -63,7 +63,28 @@ export const removeOperation = async (id, task_lst, callbackFunction) => {
 
 };
 
-export const addOperationTime = async ({id, timeSpend, description}) => {
+export const getOperation = async (id, callbackFunc) => {
+    try {
+        const res = await fetch(`${API_URL}/operations/${id}`, {
+            method: "GET",
+            headers: {
+                'Authorization': API_KEY,
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await res.json();
+
+        if (data.error || typeof callbackFunc !== "function") {
+            throw new Error("Błąd!");
+        }
+
+        callbackFunc(data);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const addOperationTime = async (id, description, summary) => {
     try {
         const res = await fetch(`${API_URL}/operations/${id}`, {
             method: "PUT",
@@ -75,9 +96,11 @@ export const addOperationTime = async ({id, timeSpend, description}) => {
             body: JSON.stringify({
                 id: id,
                 description: description,
-                timeSpend: timeSpend,
+                timeSpent: summary,
             })
         });
+        console.log(res);
+        console.log("id w środku api:", id);
         if (!res.ok) {
             throw new Error("Błąd!");
         }

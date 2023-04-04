@@ -1,12 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import useInput from "./useInput";
-import {addOperationTime} from "../API/operations";
+import {addOperationTime, getOperation} from "../API/operations";
 
 const Operation = ({description, id, onRemoveOperations, timeSpent, status}) => {
 
     const [show, setShow] = useState(true);
     const [time, connectTime] = useInput(timeSpent);
-    console.log(status);
+
+
+    useEffect(() => {
+        console.log("odświeża się przy pobieraniu operacji")
+    }, [time])
 
     const style = "width: 12rem"
 
@@ -21,12 +25,7 @@ const Operation = ({description, id, onRemoveOperations, timeSpent, status}) => 
     const setTime = (e) => {
         e.preventDefault();
         const summary = timeSpent + time;
-        const modified_operation = {
-            id: id,
-            description: description,
-            timeSpent: summary
-        }
-        addOperationTime(modified_operation);
+        addOperationTime(id, description, summary);
 
     }
 
@@ -35,7 +34,7 @@ const Operation = ({description, id, onRemoveOperations, timeSpent, status}) => 
             <div>
                 {description}
                 {timeSpent ? <span className="badge badge-success badge-pill ml-2">
-      {time} minut
+      {timeSpent} minut
     </span> : ""}
 
             </div>
